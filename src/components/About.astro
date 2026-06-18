@@ -1,0 +1,68 @@
+---
+import type { Translations } from '../i18n/utils';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+const { about } = t;
+---
+
+<section id="about">
+  <div class="about-inner">
+    <div class="about-layout">
+      <div class="about-label-col">
+        <span class="section-label">{about.label}</span>
+      </div>
+      <div class="about-text-col">
+        <p class="about-text">{about.text}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #about {
+    padding: 7rem 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .about-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .about-layout {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .about-label-col {
+    padding-top: 0.2rem;
+  }
+
+  .about-text {
+    font-family: 'Karla', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.85;
+    color: var(--text);
+    font-weight: 300;
+    max-width: 660px;
+    margin: 0;
+    white-space: pre-line;
+  }
+
+  @media (max-width: 640px) {
+    .about-layout {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .about-text {
+      font-size: 1rem;
+    }
+  }
+</style>

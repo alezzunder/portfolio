@@ -1,0 +1,144 @@
+---
+import type { Translations } from '../i18n/utils';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+const { contact } = t;
+
+// ── Contact links (static — not translated) ───────────────────────────────────
+const links = {
+  email: "alexanderlaico@gmail.com",
+  linkedin: { label: "linkedin.com/in/your-profile", url: "https://www.linkedin.com/in/" },
+  github:   { label: "github.com/alexanderlaicovsky", url: "https://github.com/alexanderlaicovsky" },
+};
+// ─────────────────────────────────────────────────────────────────────────────
+---
+
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-layout">
+      <div class="contact-left">
+        <span class="section-label">{contact.label}</span>
+        <h2 class="contact-heading">
+          {contact.heading_1}<br /><em>{contact.heading_2}</em>
+        </h2>
+        <p class="contact-note">{contact.note}</p>
+      </div>
+
+      <div class="contact-right">
+        <div class="contact-links">
+          <a href={`mailto:${links.email}`} class="contact-link">
+            <span class="link-label">{contact.email_label}</span>
+            <span class="link-value">{links.email}</span>
+          </a>
+          <a href={links.linkedin.url} target="_blank" rel="noopener noreferrer" class="contact-link">
+            <span class="link-label">{contact.linkedin_label}</span>
+            <span class="link-value">{links.linkedin.label}</span>
+          </a>
+          <a href={links.github.url} target="_blank" rel="noopener noreferrer" class="contact-link">
+            <span class="link-label">{contact.github_label}</span>
+            <span class="link-value">{links.github.label}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #contact {
+    padding: 7rem 1.5rem 9rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .contact-heading {
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    line-height: 1.05;
+    color: var(--text);
+    margin: 1.5rem 0 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .contact-heading em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .contact-note {
+    font-size: 0.875rem;
+    line-height: 1.8;
+    color: var(--muted);
+    margin: 0;
+    white-space: pre-line;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    transition: padding-left 0.2s ease;
+  }
+
+  .contact-link:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-link:hover {
+    padding-left: 0.75rem;
+  }
+
+  .link-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .link-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    transition: color 0.2s;
+    text-align: right;
+    word-break: break-all;
+  }
+
+  .contact-link:hover .link-value {
+    color: var(--text);
+  }
+
+  @media (max-width: 768px) {
+    .contact-layout {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+</style>

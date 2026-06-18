@@ -1,0 +1,150 @@
+---
+import type { Translations } from '../i18n/utils';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+const { experience } = t;
+---
+
+<section id="experience">
+  <div class="exp-inner">
+    <div class="exp-header">
+      <span class="section-label">{experience.label}</span>
+    </div>
+
+    <div class="exp-list">
+      {experience.items.map((job) => (
+        <div class="exp-item">
+          <div class="exp-meta">
+            <span class="exp-period">{job.period}</span>
+            {job.current && <span class="exp-badge">{experience.badge_now}</span>}
+          </div>
+          <div class="exp-content">
+            <div class="exp-title-row">
+              <h3 class="exp-title">{job.title}</h3>
+              <span class="exp-company">@ {job.company}</span>
+            </div>
+            <p class="exp-desc">{job.description}</p>
+            <div class="exp-stack">
+              {job.stack.map((tech) => (
+                <span class="exp-pill">{tech}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  #experience {
+    padding: 7rem 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .exp-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .exp-header {
+    margin-bottom: 3rem;
+  }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 2.5rem;
+    padding: 2.75rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .exp-item:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .exp-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 0.3rem;
+  }
+
+  .exp-period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  .exp-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(201, 153, 59, 0.4);
+    padding: 0.15rem 0.55rem;
+    width: fit-content;
+  }
+
+  .exp-title-row {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .exp-title {
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--text);
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .exp-company {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+
+  .exp-desc {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--muted);
+    margin: 0 0 1.25rem;
+    max-width: 580px;
+  }
+
+  .exp-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .exp-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    border: 1px solid var(--border-light);
+    padding: 0.2rem 0.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .exp-item {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+  }
+</style>

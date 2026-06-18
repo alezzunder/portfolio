@@ -1,0 +1,231 @@
+---
+import type { Translations } from '../i18n/utils';
+
+interface Props {
+  t: Translations;
+  lang: string;
+}
+
+const { t, lang } = Astro.props;
+
+const isEs   = lang === 'es';
+const altUrl = isEs ? '/' : '/es/';
+const altLabel = isEs ? 'EN' : 'ES';
+
+const links = [
+  { label: t.nav.about,      href: "#about" },
+  { label: t.nav.projects,   href: "#projects" },
+  { label: t.nav.experience, href: "#experience" },
+  { label: t.nav.contact,    href: "#contact" },
+];
+---
+
+<nav id="site-nav">
+  <div class="nav-container">
+    <a href={isEs ? '/es/' : '/'} class="nav-logo" aria-label="Home">AL</a>
+
+    <div class="nav-right">
+      <ul class="nav-links" role="list">
+        {links.map(({ label, href }) => (
+          <li><a href={href}>{label}</a></li>
+        ))}
+      </ul>
+      <a href={altUrl} class="lang-toggle" aria-label="Switch language">{altLabel}</a>
+    </div>
+
+    <button
+      class="nav-toggle"
+      id="nav-toggle"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="nav-mobile" id="nav-mobile" role="navigation" aria-label="Mobile menu">
+    {links.map(({ label, href }) => (
+      <a href={href}>{label}</a>
+    ))}
+    <a href={altUrl} class="lang-mobile">{altLabel} — Switch language</a>
+  </div>
+</nav>
+
+<style>
+  #site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 0 1.5rem;
+    transition: background 0.3s ease, border-color 0.3s ease;
+    border-bottom: 1px solid transparent;
+  }
+
+  #site-nav.scrolled {
+    background: rgba(10, 9, 8, 0.9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: var(--border);
+  }
+
+  .nav-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    border: 1px solid var(--border-light);
+    padding: 0.3rem 0.65rem;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .nav-logo:hover {
+    border-color: var(--accent);
+    background: rgba(201, 153, 59, 0.08);
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--text);
+  }
+
+  .lang-toggle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.55rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .lang-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+  }
+
+  .nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 1px;
+    background: var(--text);
+    transition: transform 0.25s, opacity 0.25s;
+    transform-origin: center;
+  }
+
+  .nav-toggle[aria-expanded="true"] span:first-child {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded="true"] span:last-child {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .nav-mobile {
+    display: none;
+    flex-direction: column;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+  }
+
+  .nav-mobile a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.2s, padding-left 0.2s;
+  }
+
+  .nav-mobile a:hover {
+    color: var(--text);
+    padding-left: 0.5rem;
+  }
+
+  .lang-mobile {
+    color: var(--accent) !important;
+  }
+
+  .nav-mobile.open {
+    display: flex;
+  }
+
+  @media (max-width: 600px) {
+    .nav-right { display: none; }
+    .nav-toggle { display: flex; }
+  }
+</style>
+
+<script>
+  const nav    = document.getElementById('site-nav');
+  const toggle = document.getElementById('nav-toggle');
+  const mobile = document.getElementById('nav-mobile');
+
+  window.addEventListener('scroll', () => {
+    nav?.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  toggle?.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    mobile?.classList.toggle('open');
+  });
+
+  mobile?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      toggle?.setAttribute('aria-expanded', 'false');
+      mobile.classList.remove('open');
+    });
+  });
+</script>

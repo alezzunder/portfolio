@@ -1,0 +1,532 @@
+---
+import type { Translations } from '../i18n/utils';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+const { projects } = t;
+---
+
+<section id="projects">
+  <div class="projects-inner">
+    <div class="projects-header">
+      <span class="section-label">{projects.label}</span>
+    </div>
+
+    <div class="carousel" id="carousel">
+      <div class="carousel-track" id="carousel-track">
+        {projects.items.map((project, i) => (
+          <div class="carousel-slide" data-index={i}>
+            <div class="slide-bg">
+              <div class="slide-bg-layer"></div>
+              <div class="slide-bg-layer"></div>
+            </div>
+            <div class="slide-overlay"></div>
+
+            <div class="slide-content">
+              <div class="slide-top">
+                <span class="slide-index">{String(i + 1).padStart(2, '0')}</span>
+                <span class="slide-tag">{project.tag}</span>
+              </div>
+              <h3 class="slide-name">{project.name}</h3>
+
+              <button class="know-more-btn" aria-label="Know more">
+                <span>Know more</span>
+                <span class="know-more-arrow">↓</span>
+              </button>
+
+              <div class="slide-more-body">
+                <p class="slide-desc">{project.description}</p>
+                {project.more && <p class="slide-more-text">{project.more}</p>}
+              </div>
+
+              <div class="slide-bottom">
+                <span class="slide-role">{project.role}</span>
+                <div class="slide-stack">
+                  {project.stack.map((tech) => (
+                    <span class="stack-pill">{tech}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Controls -->
+      <div class="carousel-controls">
+        <div class="carousel-dots" id="carousel-dots">
+          {projects.items.map((project, i) => (
+            <button
+              class={`dot-btn${i === 0 ? ' active' : ''}`}
+              data-goto={i}
+              aria-label={project.name}
+            ></button>
+          ))}
+        </div>
+        <div class="carousel-arrows">
+          <button class="arrow-btn" id="prev-btn" aria-label="Previous project">←</button>
+          <button class="arrow-btn" id="next-btn" aria-label="Next project">→</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #projects {
+    padding: 7rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .projects-inner {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .projects-header {
+    margin-bottom: 2rem;
+  }
+
+  /* ── Carousel ──────────────────────────────────────────────────────────── */
+
+  .carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.65s cubic-bezier(0.77, 0, 0.175, 1);
+    will-change: transform;
+  }
+
+  /* ── Slides ────────────────────────────────────────────────────────────── */
+
+  .carousel-slide {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    height: clamp(460px, 70vh, 660px);
+    overflow: hidden;
+  }
+
+  .slide-bg {
+    position: absolute;
+    inset: 0;
+    transition: transform 8s ease;
+  }
+
+  .carousel-slide.active .slide-bg {
+    transform: scale(1.04);
+  }
+
+  .slide-bg-layer {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 0.9s ease;
+  }
+
+  .slide-bg-layer:last-child {
+    opacity: 0;
+  }
+
+  /* Fine grid texture */
+  .slide-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    z-index: 1;
+  }
+
+  /* Bottom scrim — expands upward when content grows */
+  .slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(10, 9, 8, 0.97) 0%,
+      rgba(10, 9, 8, 0.65) 35%,
+      rgba(10, 9, 8, 0.15) 65%,
+      transparent 100%
+    );
+    z-index: 1;
+    transition: background 0.45s ease;
+  }
+
+  .carousel-slide.expanded .slide-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(10, 9, 8, 0.98) 0%,
+      rgba(10, 9, 8, 0.92) 55%,
+      rgba(10, 9, 8, 0.6) 80%,
+      rgba(10, 9, 8, 0.2) 100%
+    );
+  }
+
+  /* ── Slide Content ─────────────────────────────────────────────────────── */
+
+  .slide-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2.5rem 3rem;
+    z-index: 2;
+    max-width: 720px;
+  }
+
+  .slide-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .slide-index {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--accent);
+    font-weight: 300;
+  }
+
+  .slide-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .slide-name {
+    font-family: 'Karla', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    line-height: 1;
+    color: var(--accent);
+    margin: 0 0 0.85rem;
+    letter-spacing: -0.02em;
+  }
+
+  .slide-desc {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(228, 221, 212, 0.7);
+    margin: 0 0 0.85rem;
+    max-width: 560px;
+  }
+
+  .slide-more-text {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: rgba(228, 221, 212, 0.6);
+    margin: 0;
+    max-width: 560px;
+  }
+
+  /* ── Know more — inline below description ──────────────────────────────── */
+
+  .know-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+  }
+
+  .know-more-btn:hover {
+    opacity: 1;
+  }
+
+  .know-more-arrow {
+    display: inline-block;
+    transition: transform 0.35s ease;
+  }
+
+  .know-more-btn.open .know-more-arrow {
+    transform: rotate(180deg);
+  }
+
+  /* ── Expandable body ───────────────────────────────────────────────────── */
+
+  .slide-more-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.77, 0, 0.175, 1),
+                margin 0.45s ease;
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: rgba(228, 221, 212, 0.75);
+    margin-top: 0;
+  }
+
+  .carousel-slide.expanded .slide-more-body {
+    max-height: 220px;
+    margin-top: 1rem;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(201, 153, 59, 0.35) transparent;
+  }
+
+  .slide-more-body::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  .slide-more-body::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .slide-more-body::-webkit-scrollbar-thumb {
+    background: rgba(201, 153, 59, 0.35);
+  }
+
+  .slide-more-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(201, 153, 59, 0.7);
+  }
+
+  .slide-bottom {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .slide-role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  .slide-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .stack-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    border: 1px solid rgba(201, 153, 59, 0.3);
+    padding: 0.2rem 0.5rem;
+  }
+
+  /* ── Controls ──────────────────────────────────────────────────────────── */
+
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+  }
+
+  .carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .dot-btn {
+    width: 20px;
+    height: 2px;
+    background: var(--border-light);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s, width 0.2s;
+  }
+
+  .dot-btn.active {
+    background: var(--accent);
+    width: 36px;
+  }
+
+  .carousel-arrows {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .arrow-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    background: none;
+    border: 1px solid var(--border-light);
+    color: var(--muted);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .arrow-btn:hover {
+    border-color: var(--text);
+    color: var(--text);
+  }
+
+  @media (max-width: 600px) {
+    .slide-content {
+      padding: 1.75rem 1.5rem;
+    }
+
+    .carousel-slide {
+      height: clamp(380px, 75vw, 460px);
+    }
+  }
+</style>
+
+<script>
+  const track    = document.getElementById('carousel-track') as HTMLElement;
+  const dotsEl   = document.getElementById('carousel-dots');
+  const carousel = document.getElementById('carousel');
+
+  const slides = track?.querySelectorAll<HTMLElement>('.carousel-slide');
+  const dots   = dotsEl?.querySelectorAll<HTMLButtonElement>('.dot-btn');
+  const total  = slides?.length ?? 0;
+
+  const slideImages: string[][] = [
+    ['/assets/example_astro.png', '/assets/example_astro2.png'],
+    ['/assets/dashboard_iriscope.png', '/assets/files_iriscope.jpg'],
+    ['/assets/filmly_mockup.png'],
+  ];
+
+  const imgIndex  = Array(total).fill(0) as number[];
+  const frontIsA  = Array(total).fill(true) as boolean[];
+  const imgTimers = Array(total).fill(null) as (ReturnType<typeof setInterval> | null)[];
+
+  function getLayers(slideIndex: number): [HTMLElement, HTMLElement] | null {
+    const slide = slides?.[slideIndex];
+    if (!slide) return null;
+    const [a, b] = slide.querySelectorAll<HTMLElement>('.slide-bg-layer');
+    if (!a || !b) return null;
+    return [a, b];
+  }
+
+  function initSlideImage(slideIndex: number) {
+    const layers = getLayers(slideIndex);
+    if (!layers) return;
+    layers[0].style.backgroundImage = `url('${slideImages[slideIndex][0]}')`;
+  }
+
+  function cycleImage(slideIndex: number) {
+    const images = slideImages[slideIndex];
+    if (images.length <= 1) return;
+    const layers = getLayers(slideIndex);
+    if (!layers) return;
+    const [a, b] = layers;
+    const nextIdx = (imgIndex[slideIndex] + 1) % images.length;
+    imgIndex[slideIndex] = nextIdx;
+    const front = frontIsA[slideIndex] ? a : b;
+    const back  = frontIsA[slideIndex] ? b : a;
+    back.style.backgroundImage = `url('${images[nextIdx]}')`;
+    front.style.opacity = '0';
+    back.style.opacity  = '1';
+    frontIsA[slideIndex] = !frontIsA[slideIndex];
+  }
+
+  function startImageCycle(slideIndex: number) {
+    if (slideImages[slideIndex].length <= 1) return;
+    imgTimers[slideIndex] = setInterval(() => cycleImage(slideIndex), 3000);
+  }
+
+  function stopImageCycle(slideIndex: number) {
+    if (imgTimers[slideIndex]) {
+      clearInterval(imgTimers[slideIndex]);
+      imgTimers[slideIndex] = null;
+    }
+  }
+
+  function collapsePanel(slideIndex: number) {
+    const slide = slides?.[slideIndex];
+    if (!slide) return;
+    slide.classList.remove('expanded');
+    slide.querySelector('.know-more-btn')?.classList.remove('open');
+  }
+
+  let current = 0;
+  let timer: ReturnType<typeof setInterval> | null = null;
+  let paused  = false;
+
+  function goTo(index: number) {
+    collapsePanel(current);
+    stopImageCycle(current);
+    slides?.[current]?.classList.remove('active');
+    dots?.[current]?.classList.remove('active');
+
+    current = (index + total) % total;
+
+    slides?.[current]?.classList.add('active');
+    dots?.[current]?.classList.add('active');
+
+    if (track) track.style.transform = `translateX(-${current * 100}%)`;
+
+    startImageCycle(current);
+  }
+
+  function startAuto() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(() => {
+      if (!paused) goTo(current + 1);
+    }, 5000);
+  }
+
+  // Know-more toggle
+  slides?.forEach((slide, i) => {
+    const btn = slide.querySelector<HTMLElement>('.know-more-btn');
+    btn?.addEventListener('click', () => {
+      const isOpen = slide.classList.toggle('expanded');
+      btn.classList.toggle('open', isOpen);
+    });
+  });
+
+  // Init
+  slides?.forEach((_, i) => initSlideImage(i));
+  slides?.[0]?.classList.add('active');
+  goTo(0);
+  startAuto();
+
+  document.getElementById('prev-btn')?.addEventListener('click', () => { goTo(current - 1); startAuto(); });
+  document.getElementById('next-btn')?.addEventListener('click', () => { goTo(current + 1); startAuto(); });
+
+  dots?.forEach(dot => {
+    dot.addEventListener('click', () => { goTo(Number(dot.dataset.goto)); startAuto(); });
+  });
+
+  carousel?.addEventListener('mouseenter', () => { paused = true; });
+  carousel?.addEventListener('mouseleave', () => { paused = false; });
+
+  let touchStartX = 0;
+  carousel?.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  carousel?.addEventListener('touchend', (e) => {
+    const delta = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(delta) > 50) { goTo(delta > 0 ? current + 1 : current - 1); startAuto(); }
+  }, { passive: true });
+</script>

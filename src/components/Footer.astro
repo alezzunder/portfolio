@@ -1,0 +1,50 @@
+---
+import type { Translations } from '../i18n/utils';
+
+interface Props {
+  t: Translations;
+  lang: string;
+}
+
+const { t, lang } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© {year} · {t.footer.copy}</span>
+    <a href={lang === 'es' ? '/es/' : '/'} class="footer-top">{t.footer.back_top}</a>
+  </div>
+</footer>
+
+<style>
+  footer {
+    padding: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy,
+  .footer-top {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .footer-top {
+    transition: color 0.2s;
+  }
+
+  .footer-top:hover {
+    color: var(--accent);
+  }
+</style>
