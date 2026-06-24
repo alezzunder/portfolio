@@ -17,9 +17,9 @@ export const es: Translations = {
   },
   about: {
     label: "01 · Sobre mí",
-    text: `Soy un desarrollador full stack de Uruguay que entrega sistemas de producción en fintech, publishing e IA.  
+    text: `Soy un desarrollador full stack de Uruguay que entrega sistemas de producción confiables, apasionado por generar features end-to-end.  
     Avanzo rápido y construyo con cuidado. Me comunico con claridad y considero el buen trabajo en equipo tan importante como la proactividad y autonomia que requiere trabajar solo. 
-    Disponible para oportunidades remotas donde el trabajo es interesante y el equipo es serio.`,
+    Disponible para oportunidades híbridas en Montevideo y remotas en todo el mundo, donde el trabajo es interesante y el equipo es amigable y serio.`,
   },
   projects: {
     label: "02 · Proyectos",
@@ -89,14 +89,14 @@ export const es: Translations = {
     label: "05 · Contacto",
     heading_1: "Construyamos",
     heading_2: "juntos.",
-    note: "Disponible para roles remotos en todo el mundo.\nMejor contacto: email.",
+    note: "Mejor contacto: email.",
     email_label: "Email",
     linkedin_label: "LinkedIn",
     github_label: "GitHub",
   },
   footer: {
-    copy: "Construido con Astro · Desplegado en Vercel",
+    copy: "Construido con Astro · Desplegado en Railway",
     back_top: "↑ Volver arriba",
   },
-  file: "/cv_es_alexander.pdf",
+  file: "/cv_es_alexander_laicovsky.pdf",
 };

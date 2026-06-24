@@ -15,7 +15,7 @@ export const en = {
   },
   about: {
     label: "01 · About",
-    text: `I'm a full-stack developer from Uruguay who ships production systems across fintech, publishing,\nand AI — always as a contractor who moves fast and builds with care. I write clean code, communicate\nclearly, and treat every product I touch as if it's my own. Open to remote opportunities where the\nwork is interesting and the team is small and serious.`,
+    text: `I'm a full-stack developer from Uruguay who ships reliable production systems, passionate about creating features end-to-end. \n I write clean code, communicate clearly, and treat every product I touch as if it's my own.\n Open to remote opportunities where the work is interesting and the team is friendly and serious.`,
   },
 projects: {
   label: "02 · Projects",
@@ -91,10 +91,10 @@ projects: {
     github_label: "GitHub",
   },
   footer: {
-    copy: "Built with Astro · Deployed on Vercel",
+    copy: "Built with Astro · Deployed on Railway",
     back_top: "↑ Back to top",
   },
-  file: "/cv_en_alexander.pdf",
+  file: "/cv_en_alexander_laicovsky.pdf",
 } as const;
 
 export type Translations = typeof en;

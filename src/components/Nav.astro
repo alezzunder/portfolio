@@ -157,15 +157,22 @@ const links = [
     height: 1px;
     background: var(--text);
     transition: transform 0.25s, opacity 0.25s;
-    transform-origin: center;
+  }
+
+  .nav-toggle span:first-child {
+    transform-origin: left center;
+  }
+
+  .nav-toggle span:last-child {
+    transform-origin: right center;
   }
 
   .nav-toggle[aria-expanded="true"] span:first-child {
-    transform: translateY(6px) rotate(45deg);
+    transform: translateY(8.5px) rotate(-45deg) scaleX(0.707);
   }
 
   .nav-toggle[aria-expanded="true"] span:last-child {
-    transform: translateY(-6px) rotate(-45deg);
+    transform: translateY(2.5px) rotate(45deg) scaleX(0.707);
   }
 
   .nav-mobile {
