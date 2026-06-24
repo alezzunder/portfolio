@@ -94,7 +94,7 @@ projects: {
     copy: "Built with Astro · Deployed on Railway",
     back_top: "↑ Back to top",
   },
-  file: "/cv_en_alexander_laicovsky.pdf",
+  file: "/cv_alexander_laicovsky_en.pdf",
 } as const;
 
 export type Translations = typeof en;

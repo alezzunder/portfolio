@@ -98,5 +98,5 @@ export const es: Translations = {
     copy: "Construido con Astro · Desplegado en Railway",
     back_top: "↑ Volver arriba",
   },
-  file: "/cv_es_alexander_laicovsky.pdf",
+  file: "cv_alexander_laicovsky.pdf",
 };
