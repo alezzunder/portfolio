@@ -17,41 +17,40 @@ export const en = {
     label: "01 · About",
     text: `I'm a full-stack developer from Uruguay who ships production systems across fintech, publishing,\nand AI — always as a contractor who moves fast and builds with care. I write clean code, communicate\nclearly, and treat every product I touch as if it's my own. Open to remote opportunities where the\nwork is interesting and the team is small and serious.`,
   },
-  projects: {
-    label: "02 · Projects",
-    items: [
-      {
-        name: "Static Website",
-        role: "ECOM Center",
-        stack: ["Astro.js"],
+projects: {
+  label: "02 · Projects",
+  knowMore: "Know more",
+  items: [
+    {
+      name: "Iriscope",
+      role: "Contractor",
+      stack: ["React", "Node.js"],
+      tag: "Full-stack · Data Integration",
+      description:
+        "Internal dashboard an advertising client's team uses daily. The hard part was turning several mismatched data sources into one view they could actually trust in real time.",
+      more: "Data comes from multiple platform APIs and Google Drive, each with its own schema and OAuth token lifecycle to keep alive. I normalised it in a Node.js backend and made the daily cron idempotent, so a failed run can retry without duplicating records — the difference between a dashboard the team trusts and one they quietly stop using.",
+    },
+    {
+      name: "Filmly",
+      role: "Academic Project",
+      stack: ["C#", "React Native", "OpenAI"],
+      tag: "AI · Mobile",
+      description:
+        "AI movie recommendation app. I built the recommendation engine and the cross-platform mobile app, using OpenAI to turn a few swipes into suggestions that actually fit each user's taste.",
+      more: "I chose a C# backend for the recommendation logic — based on the user's history, it builds a prompt for the OpenAI API. The React Native app uses a tinder-style swipe to capture taste signals fast, then sends them to the engine, with one consistent experience across iOS and Android — the process runs in parallel, so the user never stops swiping and receiving new recommendations.",
+    },
+    {
+       name: "Static Websites",
+        role: "Independent Contractor",
+        stack: ["Astro.js", "Tailwind CSS"],
         tag: "Web · Performance",
         description:
-          "Delivered a fast, maintainable static web presence for an international client. Shipped on time, optimised for load performance, and built to be handed off cleanly.",
-        more: "Built with Astro.js, leveraging its static site generation capabilities to create a performant and SEO-friendly website. The project involved designing a clean architecture that allows for easy content updates and scalability as the client's needs grow.",
-      },
-      {
-        name: "Iriscope Dashboard",
-        role: "Contractor",
-        stack: ["React", "Node.js"],
-        tag: "Internal Tools",
-        description:
-          "Internal dashboard for a publishing client's editorial workflow. Designed the data architecture and built the interactive UI that their team uses daily to manage operations.",
-        more: "Data is pulled from multiple platform APIs and Google Drive — authenticated via OAuth — processed in a Node.js backend in a daily cron job, and surfaced through a React frontend. The result is a real-time dashboard with clear visualizations that the editorial team relies on daily to manage their publishing workflow.",
-      },
-      {
-        name: "Filmly",
-        role: "Academic Project",
-        stack: ["C#", "React Native", "OpenAI"],
-        tag: "AI · Mobile",
-        description:
-          "AI-powered movie recommendation app. Built the recommendation engine and cross-platform mobile interface, integrating OpenAI to surface personalised suggestions at scale.",
-        more: "The app leverages OpenAI's language model to analyze user preferences and viewing history, using a tinder-style interface to generate highly personalised movie recommendations. The cross-platform mobile interface ensures a consistent user experience across both iOS and Android devices.",
-      },
-    ],
-  }, 
+          "Fast, maintainable static web presence for international clients. Built with Astro.js (like this portfolio).",
+    },
+  ],
+},
   experience: {
     label: "03 · Experience",
-    badge_now: "Now",
     items: [
       {
         company: "ECOM Center",
@@ -59,7 +58,7 @@ export const en = {
         period: "2025 — Present",
         current: true,
         description:
-          "Designing and building cloud-based microservices for international clients. I own the full delivery lifecycle — from architecture to deployment — working in Python FastAPI and React.js across multiple concurrent projects.",
+          "Designing and building cloud-based microservices for international clients. In Python with FastAPI and React.js, I've contributed to biometric data validation systems, third-party API integrations, and data processing pipelines.",
         stack: ["Python", "FastAPI", "React.js", "Microservices", "REST APIs"],
       },
       {
@@ -68,8 +67,8 @@ export const en = {
         period: "2024 — 2025",
         current: false,
         description:
-          "Built large-scale PHP automations that significantly cut manual workload and accelerated administrative workflows for the company's internal teams. Turned hours of daily repetitive work into reliable automated pipelines.",
-        stack: ["PHP", "MySQL", "Process Automation"],
+          "Built large-scale PHP automations that significantly cut manual workload and accelerated administrative workflows for the internal team. Turned hours of repetitive work into reliable automated pipelines. I also designed and implemented the app's first paid feature, a premium option for users who want deeper insight into their credit profile.",
+        stack: ["PHP", "MySQL", "JavaScript", "Process Automation"],
       },
     ],
   },

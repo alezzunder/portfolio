@@ -23,24 +23,16 @@ export const es: Translations = {
   },
   projects: {
     label: "02 · Proyectos",
+    knowMore: "Saber más",
     items: [
       {
-        name: "Sitio Estático",
-        role: "Ecom Center",
-        stack: ["Astro.js"],
-        tag: "Web · Rendimiento",
-        description:
-          "Entregué una presencia web estática rápida y mantenible para un cliente internacional. Entregado a tiempo, optimizado para rendimiento y construido para una transición limpia.",
-        more: "Construido con Astro.js, aprovechando sus capacidades de generación de sitios estáticos para crear un sitio web de alto rendimiento y optimizado para SEO. El proyecto involucró diseñar una arquitectura limpia que permite actualizaciones de contenido fáciles y escalabilidad a medida que crecen las necesidades del cliente.",
-      },
-      {
-        name: "Dashboard Iriscope",
+        name: "Iriscope",
         role: "Contratista Independiente",
         stack: ["React", "Node.js"],
-        tag: "Herramientas Internas",
+        tag: "Full-stack · Integración de Datos",
         description:
-          "Dashboard interno para el flujo editorial de un cliente de publicación. Diseñé la arquitectura de datos y construí la UI interactiva que su equipo usa diariamente para gestionar operaciones.",
-        more: "Los datos se extraen tanto de las APIs de plataformas como de archivos de Drive sincronizados con Google OAuth en cron diario, se procesan en un backend de Node.js y se muestran en un frontend de React. El dashboard cuenta con actualizaciones en tiempo real, visualizaciones de datos intuitivas y una interfaz fácil de usar que ha mejorado significativamente la eficiencia del flujo editorial del cliente.",
+          "Dashboard interno que el equipo de un cliente publicitario usa a diario. La parte difícil fue convertir varias fuentes de datos dispares en una única vista en la que realmente pudieran confiar en tiempo real.",
+        more: "Los datos vienen de múltiples APIs de plataformas y Google Drive, cada una con su propio esquema y ciclo de vida de tokens OAuth que mantener activo. Los normalicé en un backend de Node.js e hice el cron diario idempotente, para que una ejecución fallida pueda reintentarse sin duplicar registros, la diferencia entre un dashboard en el que el equipo confía y uno que terminan dejando de usar.",
       },
       {
         name: "Filmly",
@@ -48,14 +40,21 @@ export const es: Translations = {
         stack: ["C#", "React Native", "OpenAI"],
         tag: "IA · Mobile",
         description:
-          "App de recomendación de películas con IA. Construí el motor de recomendaciones y la interfaz móvil multiplataforma, integrando OpenAI para sugerencias personalizadas a escala.",
-        more: "La app aprovecha el modelo de lenguaje de OpenAI para analizar las preferencias del usuario e historial de visualización, utilizando una interfaz estilo Tinder para generar recomendaciones de películas altamente personalizadas. La interfaz móvil multiplataforma garantiza una experiencia de usuario consistente tanto en dispositivos iOS como Android.",
+          "App de recomendación de películas con IA. Construí el motor de recomendaciones y la app móvil multiplataforma, usando OpenAI para convertir unos pocos swipes en sugerencias que realmente se ajustan al gusto de cada usuario.",
+        more: "Elegí un backend en C# para la lógica de recomendaciones, basado en el historial del usuario, se buildea un prompt a la API de OpenAI. La app en React Native usa un swipe estilo Tinder para capturar señales de gusto rápidamente y luego las envía al motor, con una experiencia consistente en iOS y Android, el proceso funciona en paralelo por lo que el usuario nunca deja de swipear y recibir nuevas recomendaciones.",
+      },
+      {
+        name: "Webs Estáticas",
+        role: "Contratista Independiente",
+        stack: ["Astro.js", "Tailwind CSS"],
+        tag: "Web · Performance",
+        description:
+          "Presencia web estática rápida y mantenible para clientes internacionales. Construido con Astro.js (como este portfolio).",
       },
     ],
   },
   experience: {
     label: "03 · Experiencia",
-    badge_now: "Ahora",
     items: [
       {
         company: "ECOM Center",
@@ -63,7 +62,7 @@ export const es: Translations = {
         period: "2025 — Presente",
         current: true,
         description:
-          "Diseño y construyo microservicios en la nube para clientes internacionales. Gestiono el ciclo completo de entrega — desde la arquitectura hasta el despliegue — en Python FastAPI y React.js.",
+          "Diseño y construyo microservicios en la nube para clientes internacionales. En Python con FastAPI y React.js, he constribuido en sistemas de validación de datos biomètricos, integraciones con APIs de terceros y pipelines de procesamiento de datos. ",
         stack: ["Python", "FastAPI", "React.js", "Microservicios", "REST APIs"],
       },
       {
@@ -72,8 +71,8 @@ export const es: Translations = {
         period: "2024 — 2025",
         current: false,
         description:
-          "Construí automatizaciones PHP a gran escala que redujeron significativamente la carga manual y aceleraron los flujos administrativos del equipo interno. Convertí horas de trabajo repetitivo en pipelines automatizados y confiables.",
-        stack: ["PHP", "MySQL", "Automatización de Procesos"],
+          "Construí automatizaciones PHP a gran escala que redujeron significativamente la carga manual y aceleraron los flujos administrativos del equipo interno. Convertí horas de trabajo repetitivo en pipelines automatizados y confiables. A su vez diseñé e implementé la primer funcionalidad paga de la app, una opción premium para aquellos usuarios que requieran mayor conocimiento sobre su perfil crediticio.",
+        stack: ["PHP", "MySQL", "JavaScript", "Automatización de Procesos"],
       },
     ],
   },
@@ -89,7 +88,7 @@ export const es: Translations = {
   contact: {
     label: "05 · Contacto",
     heading_1: "Construyamos",
-    heading_2: "algo bueno.",
+    heading_2: "juntos.",
     note: "Disponible para roles remotos en todo el mundo.\nMejor contacto: email.",
     email_label: "Email",
     linkedin_label: "LinkedIn",
